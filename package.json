@@ -1,0 +1,28 @@
+{
+  "name": "plcm-project",
+  "version": "1.0.0",
+  "description": "Projeto sonda PLCM",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "Jonathan C L Domingos",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.21.0",
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "express": "^4.17.1",
+    "express-handlebars": "^5.1.0",
+    "express-session": "^1.17.1",
+    "mongoose": "^5.10.5",
+    "mssql": "^6.2.3",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "vue-search-select": "^2.9.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  }
+}

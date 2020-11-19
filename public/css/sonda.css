@@ -1,0 +1,122 @@
+.bg-color {
+    background-position: center !important;
+    background-color:#212b32 !important;
+
+}
+
+.container-color{
+    background-color: #fff !important;
+    border-radius: 10px !important;
+    margin-bottom: 20px !important;
+    margin-top: 20px !important;
+}
+
+.container-color01{
+    background-color: #fff !important;
+    width: 350px !important;
+    height: 300px !important;
+    border-radius: 10px !important;
+    margin-bottom: 20px !important;
+    margin-top: 20px !important;
+}
+
+.logo01{
+    width: 60% !important;
+    margin: 10px auto 30px !important;
+    display: block !important;
+}
+
+.logo02{
+    width: 20% !important;
+    margin-bottom: 5px !important;
+
+}
+
+
+.label-letras{
+    font-family: Helvetica, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 22px !important;
+    color: #212b32 !important;
+    
+}
+
+h3{
+    font-family: Helvetica, sans-serif !important;
+    font-size: 20px !important;
+    line-height: 22px !important;
+    color: #212b32 !important;
+    font-weight: bold !important;
+}
+
+.span{
+    font-family: Helvetica, sans-serif !important;
+    font-size: 20px !important;
+    line-height: 22px !important;
+    color: #aa0909 !important;
+    font-weight: bold !important;
+}
+
+
+.estrelas input[type=radio]{
+	display: none !important;
+}.estrelas label i.fa:before{
+	content: '\f005' !important;
+	color: #FC0 !important;
+}.estrelas  input[type=radio]:checked  ~ label i.fa:before{
+	color: #CCC !important;
+}
+
+/*
+.download{
+    float: right !important;
+
+}
+*/
+
+
+
+
+
+
+
+
+
+/* Responsive table */
+
+@media(max-width:500px){
+    .tabela thead{
+        display: none;
+    }
+
+    .tabela, .tabela tbody, .tabela tr, .tabela td{
+        display: block;
+        width: 100%;
+    }
+    .tabela tr{
+        margin-bottom: 15px;
+    }
+
+    .tabela td{
+        text-align: right;
+        padding-left: 50%;
+        text-align: right;
+        position: relative;
+    }
+    .tabela td::before{
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-size: 14px;
+        font-weight: bold;
+        text-align: left;
+        font-family: Helvetica, sans-serif;
+        /* 
+        font-size: 14px;
+        color: #212b32; */
+
+    }
+
+}

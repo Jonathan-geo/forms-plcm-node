@@ -1,0 +1,238 @@
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<style>
+.slct{
+    border: 1px solid rgb(207, 207, 207);
+    background-color: rgb(255, 255, 255);
+}
+
+</style>
+
+<!-- css interno -->
+<link rel="stylesheet" type="text/css" href="css/sonda.css" />
+
+<body class="bg-color">
+    <div class="container container-color">
+        <br/>
+
+        <!-- IMAGEM SONDA -->
+        
+        <div>
+            <img class="logo02" src="img/logo-sonda-color.png" alt="SONDA" >
+        </div>
+        
+        <!-- DOWNLOAD MENU -->
+        <div class="download">
+            <div class="btn-group">
+                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown"  >
+                    DOWNLOAD CSV  
+                </button>
+                <div class="dropdown-menu">
+                    <a class="label-letras" href="_php/exportProdutos.php">PRODUTOS</br></a>
+                    <a class="label-letras" href="_php/exportGestao.php">GESTÃO</br></a>
+                    <a class="label-letras" href="_php/exportContatoCliente.php">CONTATO CLIENTE</br></a>
+                </div>
+            </div>
+        </div>
+
+    
+        <!-- INICIO FORMS -->
+        <form method="post" id="formId">
+            <h3 class="text-center" >CADASTRO DE PRODUTO E GESTÃO</h3>
+            
+            <div class="row">
+                <!--==================GRUPO====================--->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">GRUPO EMPRESARIAL</label><br/>
+                    <select 
+                        id="tgrupo" name="tgrupo" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                            {{#each grupoEmpresarial}}
+                                <option value="{{this.[Grupo Empresarial]}}">{{this.[Grupo Empresarial]}}</option> 
+                            {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="grupo_required"></span>
+                </div>
+
+
+                <!--==================CLIENTE====================--->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">CLIENTE</label><br/>
+                    <select id="tcliente" name="tcliente" class="form-control custom-select">
+                        <option selected disabled>Selecione um valor</option>
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="cliente_required"></span>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <!--==================[CNPJ]==================--->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">CNPJ</label><br/>
+                    <select id="tcnpj" name="tcnpj" class="form-control custom-select">
+                        <option selected disabled>Selecione um valor</option>
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="cnpj_required"></span>
+                </div>
+
+                <!---================== [OS] ==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">OS</label><br/>
+                    <select id="tos" name="tos" class="form-control custom-select">
+                        <option selected disabled>Selecione um valor</option>
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="os_required"></span>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <!--================== [PRODUTOS] ==================--->
+                <div class="form-group col-md-12">
+                    <label class="label-letras">PRODUTOS</label><br/>
+                    <select 
+                        id="tproduto" name="tproduto" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true" 
+                        multiple
+                        title="Selecione um valor"
+                    >
+                        {{#each produtos}}
+                            <option value="{{this.produto}}">{{this.produto}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="produto_required"></span>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <!--================== [ACCOUNT EXECUTIVE] ==================-->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">ACCOUNT EXECUTIVE (AE)</label>
+                    <select 
+                        id="ae" name="ae" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each accountExecutive}}
+                            <option>{{this.[Account Executive]}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="ae_required"></span>
+                </div>
+
+                <!--==================[GESTOR DE CONTA]==================--->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">GESTOR DE CONTA (GR)</label>
+                    <select 
+                        id="gc" name="gc" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each gestorContaGR}}
+                            <option>{{this.Gestor_Conta}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="gc_required"></span>
+                </div>
+
+                <!--================== [GESTOR CLIENTE SONDA - ANTIGO AM - ATUAL PLCM]==================--->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">GESTOR DE PLCM</label>
+                    <select 
+                        id="plcm" name="plcm" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each gestorPLCM}}
+                            <option>{{this.AM}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="plcm_required"></span>
+                </div>
+
+            </div>
+
+
+            <h3 class="text-center">CONTATO DE CLIENTE</h3>
+            
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="item_nome_required"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="item_email_required"></span>
+                </div>
+                <div class="form-group col-md-3">
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="item_telefone_required"></span>
+                </div>
+                <div class="form-group col-md-2">
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="item_frente_required"></span>
+                </div>
+            </div>
+
+            <div class="tabela">
+                <table class="table table-bordered" id="crud_table">
+                    <thead>
+                        <th class="label-letras" width="30%">NOME</th>
+                        <th class="label-letras" width="30%">EMAIL</th>
+                        <th class="label-letras" width="20%">TELEFONE</th>
+                        <th class="label-letras" width="15%">FRENTE</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td contenteditable="true" class="item_nome" data-label="NOME"></td>
+                            <td contenteditable="true" class="item_email" data-label="EMAIL"></td>
+                            <td contenteditable="true" class="item_telefone" data-label="TELEFONE"></td>
+                            <td contenteditable="true" class="item_frente" data-label="FRENTE"></td>
+                            <td><button type="button" name="add" id="add" class="btn btn-success btn-xs">+</button></td>
+                        </tr>
+                    </tbody>
+                </table>     
+            </div> <!-- class="table-responsive" -->
+            
+            <div class="row">
+                <div class="form-group col-md-2">
+
+                    <input type="hidden" name="hidden_framework" id="hidden_framework"/>
+                    <input type="submit" name="submit" class="btn btn-primary btn-sm" value="Enviar"/>
+                </div>
+            </div>
+        </form>
+    </div> <!-- class="container" -->
+
+
+    <!-- javascript interno -->
+    <script src="js/jfunction.js" type="text/javascript"></script>
+</body>
+

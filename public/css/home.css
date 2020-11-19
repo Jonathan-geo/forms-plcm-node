@@ -1,0 +1,93 @@
+body{
+    background: url("../img/sap-hana-iansa.jpg") no-repeat center top fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: #EEE9E9;
+    font-family: sans-serif;
+    
+}
+
+.bg-color {
+    background-position: center !important;
+
+}
+
+.color-sonda{
+    background-color: rgba(255,255,255,0.10) !important;
+}
+
+.container-color{
+    background-color: rgba(255,255,255,0.10) !important;
+    border-radius: 10px !important;
+    margin-bottom: 20px !important;
+    margin-top: 20px !important;
+}
+
+.container-color01{
+    background-color: #fff !important;
+    width: 350px !important;
+    height: 300px !important;
+    border-radius: 10px !important;
+    margin-bottom: 20px !important;
+    margin-top: 20px !important;
+}
+
+.logo01{
+    width: 60% !important;
+    margin: 10px auto 30px !important;
+    display: block !important;
+}
+
+.logo02{
+    width: 20% !important;
+    margin-bottom: 5px !important;
+
+}
+
+
+.label-letras{
+    font-family: Helvetica, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 22px !important;   
+}
+
+h3{
+    font-family: Helvetica, sans-serif !important;
+    font-size: 20px !important;
+    line-height: 22px !important;
+    color: #212b32 !important;
+    font-weight: bold !important;
+}
+
+.span{
+    font-family: Helvetica, sans-serif !important;
+    font-size: 20px !important;
+    line-height: 22px !important;
+    color: #aa0909 !important;
+    font-weight: bold !important;
+}
+
+
+.estrelas input[type=radio]{
+	display: none !important;
+}.estrelas label i.fa:before{
+	content: '\f005' !important;
+	color: #FC0 !important;
+}.estrelas  input[type=radio]:checked  ~ label i.fa:before{
+	color: #CCC !important;
+}
+
+/*
+.download{
+    float: right !important;
+
+}
+*/
+
+
+
+
+
+
