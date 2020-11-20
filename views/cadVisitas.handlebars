@@ -1,0 +1,544 @@
+
+<!-- Bootstrap CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+
+<!-- plugin select-bootstrap -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+
+<!-- plugin axios e sweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+        
+<link rel="stylesheet" type="text/css" href="css/sonda.css" />
+
+
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+
+
+<!--Script Grau_Satisfacao_Geral-->
+<!--Script Temperatura_Reniao-->
+<script src="js/pluginStars.js"></script>
+
+<!-- javascript interno -->
+<script src="js/jfunction.js" type="text/javascript" ></script>
+
+
+
+<body class="bg-color">
+    <div class="container container-color">
+        <br/>
+
+        <!-- IMAGEM SONDA -->
+        <div>
+            <img class="logo02" src="img/logo-sonda-color.png" alt="SONDA" >
+        </div>
+
+
+
+
+        <form method="post" id="multiple_select_form">
+            <h3 class="text-center" >Cadastro de Visitas ao Cliente</h3>
+            <br/>
+            
+            <div class="row">
+                <!--==================[DIRETOR]==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">DIRETOR: </label><br/>
+                    <select 
+                        id="Diretoria" name="Diretoria" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each diretoria}}
+                            <option value="{{this.diretoria}}">{{this.diretoria}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="Diretoria_required"></span>
+                </div>
+
+                <!--==================[AM] - ATUAL PLCM==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">GESTOR DE PLCM: </label><br/>
+                    <select 
+                        id="Account_Manager" name="Account_Manager" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each gestorPLCM}}
+                            <option value="{{this.AM}}">{{this.AM}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="Account_Manager_required"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--==================[GRUPO EMPRESARIAL]==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">GRUPO EMPRESARIAL: </label><br/>
+                    <select 
+                        id="Grupo" name="Grupo" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each grupoEmpresarial}}
+                            <option value="{{this.[Grupo Empresarial]}}">{{this.[Grupo Empresarial]}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="Grupo_required"></span>
+                </div>
+                
+                <!--==================[GR]==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">GESTOR DE CONTAS (GR): </label><br/>
+                    <select 
+                        id="Gestor_Conta" name="Gestor_Conta" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each gestorContaGR}}
+                            <option value="{{this.Gestor_Conta}}">{{this.Gestor_Conta}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="Gestor_Conta_required"></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--==================[Cliente]==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">CLIENTE: </label><br/>
+                    <select 
+                        id="Cliente" name="Cliente" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        <option value="01">Tabela Não Identificada</option> 
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="Cliente_required"></span>
+
+                </div>
+            </div>
+
+            <div class="row">
+                <!--==================[Produtos]==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">PRODUTO: </label><br/>
+                    <select 
+                        id="Produto" name="Produto" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each produtos}}
+                            <option value="{{this.produto}}">{{this.produto}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="Produto_required"></span>
+
+                </div>
+
+                <!--==================[SERVIÇOS]==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">SERVIÇO: </label><br/>
+                    <select 
+                        id="Servico" name="Servico" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each servico}}
+                            <option value="{{this.servico}}">{{this.servico}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;" id="Servico_required"></span>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <!--==================[PARTICIPAÇÃO DO Cliente]==================-->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">PARTICIPAÇÃO DO CLIENTE: </label>
+                    <input type="text" class="form-control" id="Partic_Clientes" name="Partic_Clientes"/>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Partic_Clientes_required"></span>
+                </div>
+
+                <!--==================[PARTICIPAÇÃO SONDA]==================-->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">PARTICIPAÇÃO DA SONDA: </label>
+                    <input type="text" class="form-control" id="Partic_Sonda" name="Partic_Sonda"/>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Partic_Sonda_required"></span>
+                </div>
+            </div>
+
+            <hr>
+
+                <!--==================[MOTIVO DA REUNIÃO]==================-->
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="label-letras">MOTIVO DA REUNIÃO: </label><br/>
+                    <textarea id="Motivo_Reuniao" name="Motivo_Reuniao" class="form-control"></textarea>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Motivo_Reuniao_required"></span>
+                    </div>
+                </div>
+
+                <hr>
+
+                <!--==================[PONTOS POSITIVOS]==================-->
+                <div class="form-group">
+                    <label class="label-letras">PONTOS POSITIVOS: </label>
+                    <textarea type="text" class="form-control" id="Pontos_Positivos" name="Pontos_Positivos"></textarea>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Pontos_Positivos_required"></span>
+                </div>
+
+                <!--==================[PONTOS NEGATIVOS]==================-->
+                <div class="form-group">
+                    <label class="label-letras">PONTOS NEGATIVOS: </label>
+                    <textarea type="text" class="form-control" id="Pontos_Negativos" name="Pontos_Negativos"></textarea>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Pontos_Negativos_required"></span>
+                </div>
+
+                <!--==================[OportunidadesS]==================-->
+                <div class="form-group">
+                    <label class="label-letras">OPORTUNIDADES: </label>
+                    <textarea type="text" class="form-control" id="Oportunidades" name="Oportunidades"></textarea>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Oportunidades_required"></span>
+                </div>
+
+            <hr>
+
+            <div class="row">
+                <!--==================[MOTIVO DE SATISFAÇÃO 1]==================-->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">1 - MOTIVO DE SATISFAÇÃO: </label>
+                    <select 
+                        id="Motivo_Satisfeito1" name="Motivo_Satisfeito1" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each satsfacao}}
+                            <option value="{{this.Motivo_Satisteito}}">{{this.Motivo_Satisteito}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Motivo_Satisfeito1_required"></span>
+                </div>
+
+                <!--==================[MOTIVO DE SATISFAÇÃO 2]==================-->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">2 - MOTIVO DE SATISFAÇÃO: </label>
+                    <select 
+                        id="Motivo_Satisfeito2" name="Motivo_Satisfeito2" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each satsfacao}}
+                            <option value="{{this.Motivo_Satisteito}}">{{this.Motivo_Satisteito}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Motivo_Satisfeito2_required"></span>
+                </div>
+
+                <!--==================[MOTIVO DE SATISFAÇÃO 3]==================-->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">3 - MOTIVO DE SATISFAÇÃO: </label>
+                    <select 
+                        id="Motivo_Satisfeito3" name="Motivo_Satisfeito3" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each satsfacao}}
+                            <option value="{{this.Motivo_Satisteito}}">{{this.Motivo_Satisteito}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Motivo_Satisfeito3_required"></span>
+                </div>
+
+            </div>
+
+            <div class="row">
+                <!--==================[MOTIVO DE INSATISFAÇÃO 1]==================-->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">1 - MOTIVO DE INSATISFAÇÃO: </label>
+                    <select 
+                        id="Motivo_Insatisfeito1" name="Motivo_Insatisfeito1" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each satsfacao}}
+                            <option value="{{this.Motivo_Insatisfeito}}">{{this.Motivo_Insatisfeito}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Motivo_Insatisfeito1_required"></span>
+                </div>
+
+                <!--==================[MOTIVO DE INSATISFAÇÃO 2]==================-->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">2 - MOTIVO DE INSATISFAÇÃO: </label>
+                    <select 
+                        id="Motivo_Insatisfeito2" name="Motivo_Insatisfeito2" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each satsfacao}}
+                            <option value="{{this.Motivo_Insatisfeito}}">{{this.Motivo_Insatisfeito}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Motivo_Insatisfeito2_required"></span>
+                </div>
+
+                <!--==================[MOTIVO DE INSATISFAÇÃO 3]==================-->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">3 - MOTIVO DE INSATISFAÇÃO: </label>
+                    <select 
+                        id="Motivo_Insatisfeito3" name="Motivo_Insatisfeito3" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        {{#each satsfacao}}
+                            <option value="{{this.Motivo_Insatisfeito}}">{{this.Motivo_Insatisfeito}}</option> 
+                        {{/each}}
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Motivo_Insatisfeito3_required"></span>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <div class="form-group col-md-12">
+                    <label class="label-letras">OBSERVAÇÃO: </label><br/>
+                    <textarea id="Observacao_Satisfacao" name="Observacao_Satisfacao" class="form-control"></textarea>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Observacao_Satisfacao_required"></span>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="row">
+                <!--==================[Canal_visita]==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">CANAL DE VISITAS: </label><br/>
+                    <select 
+                        id="Canal_visita" name="Canal_visita" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        <option value="Call">Call</option>
+                        <option value="presencial(tranporte aéreo, hotel)">presencial (tranporte aéreo, hotel)</option>
+                        <option value="presencial(transporte aéreo)">presencial(transporte aéreo)</option>
+                        <option value="presencial(sem aéreo)">presencial(sem aéreo)</option>
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Canal_visita_required"></span>
+                </div>
+
+                <!--==================[GR]==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">NUMERO DE PESSOAS(AÉREA/HOTEL): </label><br/>
+                    <select 
+                        id="Num_pessoas_Aereo_Hotel" name="Num_pessoas_Aereo_Hotel" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Num_pessoas_Aereo_Hotel_required"></span>
+                </div>
+
+                <!--==================[DURAÇÃO]==================-->
+                <div class="form-group col-md-6">
+                    <label class="label-letras">DURAÇÃO DA REUNIÃO: </label><br/>
+                    <select 
+                        id="Tempo_reuniao" name="Tempo_reuniao" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        <option value="30"> 30 Minutos </option>
+                        <option value="60"> 1 Hora </option>
+                        <option value="120"> 2 Horas</option>
+                        <option value="180"> 3 Horas</option>
+                        <option value="240"> +4 Horas</option>
+                    </select>
+                    <span  style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Tempo_reuniao_required"></span>
+                </div>
+
+                <div class="form-group col-md-6">
+                    <label class="label-letras">NUMERO DE PESSOAS (UBER/TAXI): </label><br/>
+                    <select 
+                        id="Num_pessoas_Uber_Taxi" name="Num_pessoas_Uber_Taxi" 
+                        class="selectpicker form-control" 
+                        data-style="slct" 
+                        data-live-search="true"
+                        title="Selecione um valor"
+                    >
+                        <option value="0">0</option>
+                        <option value="1">1</option>
+                        <option value="1">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                        <option value="9">9</option>
+                        <option value="10">10</option>
+                    </select>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Num_pessoas_Uber_Taxi_required"></span>
+                </div>
+            </div>
+
+            <hr> 
+
+            <div class="row">
+                <!--==================[DATA VISITA]==================-->
+                <div class="form-group col-md-4">
+                    <label class="label-letras">DATA VISITA: </label>
+                    <input class="slct" style="border-radius: 0.2rem;" type="date" name="Data_Visita" id="Data_Visita"/><br />
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Data_Visita_required"></span>
+                </div>
+            </div>
+
+            <hr>
+
+
+            <fieldset class="nota">          
+                <div class="estrelas" id="estrelas">
+                    <div>
+                    <label>Temperatura da Reunião: </label>
+                    </div>
+                        <input type="radio" id="vazio" name="Temperatura_Reniao" value="" checked>
+                        
+                        <label for="estrela_um"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_um" name="Temperatura_Reniao" value="1" onclick="Legenda1()">
+                        
+                        <label for="estrela_dois"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_dois" name="Temperatura_Reniao" value="2" onclick="Legenda2()">
+                        
+                        <label for="estrela_tres"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_tres" name="Temperatura_Reniao" value="3" onclick="Legenda3()">
+                        
+                        <label for="estrela_quatro"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_quatro" name="Temperatura_Reniao" value="4" onclick="Legenda4()">
+                        
+                        <label for="estrela_cinco"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_cinco" name="Temperatura_Reniao" value="5" onclick="Legenda5()">
+
+                        <label for="estrela_seis"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_seis" name="Temperatura_Reniao" value="6" onclick="Legenda6()">
+
+                        <label for="estrela_sete"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_sete" name="Temperatura_Reniao" value="7" onclick="Legenda7()">
+
+                        <label for="estrela_oito"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_oito" name="Temperatura_Reniao" value="8" onclick="Legenda8()">
+
+                        <label for="estrela_nove"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_nove" name="Temperatura_Reniao" value="9" onclick="Legenda9()">
+
+                        <label for="estrela_dez"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_dez" name="Temperatura_Reniao" value="10" onclick="Legenda10()">
+                    <p id="legenda1" name="legenda1" class="legenda1"></p>
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Temperatura_Reniao_required"></span>
+                </div>
+
+                    <div class="estrelas" id="estrelas">
+                    <div>
+                        <label>Grau de Satisfação Geral: </label>
+                        </div>
+                        <input type="radio" id="vazio" name="Grau_Satisfacao_Geral" value="" checked>
+                            
+                        <label for="estrela_um2"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_um2" name="Grau_Satisfacao_Geral" value="1" onclick="Legenda11()">
+                            
+                        <label for="estrela_dois2"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_dois2" name="Grau_Satisfacao_Geral" value="2" onclick="Legenda12()">
+                            
+                        <label for="estrela_tres2"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_tres2" name="Grau_Satisfacao_Geral" value="3" onclick="Legenda13()">
+                            
+                        <label for="estrela_quatro2"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_quatro2" name="Grau_Satisfacao_Geral" value="4" onclick="Legenda14()">
+                                    
+                        <label for="estrela_cinco2"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_cinco2" name="Grau_Satisfacao_Geral" value="5" onclick="Legenda15()">
+
+                        <label for="estrela_seis2"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_seis2" name="Grau_Satisfacao_Geral" value="6" onclick="Legenda16()">
+
+                        <label for="estrela_sete2"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_sete2" name="Grau_Satisfacao_Geral" value="7" onclick="Legenda17()">
+
+                        <label for="estrela_oito2"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_oito2" name="Grau_Satisfacao_Geral" value="8" onclick="Legenda18()">
+
+                        <label for="estrela_nove2"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_nove2" name="Grau_Satisfacao_Geral" value="9" onclick="Legenda19()">
+
+                        <label for="estrela_dez2"><i class="fa"></i></label>
+                        <input type="radio" id="estrela_dez2" name="Grau_Satisfacao_Geral" value="10" onclick="Legenda20()">
+                    <p id="legenda2" name="legenda2" class="legenda2"></p> 
+                    <span style="color: #aa0909; font-size: 12px; font-weight: bold;"  id="Grau_Satisfacao_Geral_required"></span>   
+                </div>
+            </fieldset>
+
+        
+            <div class="row">
+                <div class="form-group col-md-2">
+                    <!-- <button type="submit" name="submit" class="btn btn-primary btn-sm" value="Submit"> ENVIAR </button> -->
+                    <input type="hidden" name="hidden_framework" id="hidden_framework"/>
+                    <input type="submit" name="submit" class="btn btn-primary btn-sm" value="Enviar"/>
+                </div>
+            </div>
+        </form> 
+    </div> <!-- class="container" -->
+</body>
+
+
+

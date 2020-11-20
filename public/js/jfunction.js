@@ -1,322 +1,218 @@
 
 $(document).ready(function(){
-    
-    //POPULANDO O SELECT CLIENTE
-    $('#tgrupo').change(function(){
-        let selectedeValue = $("#tgrupo").val();
-        //console.log("Axios Envia Grupo: " + selectedeValue)
-        axios.post('/tcliente', {grupo:selectedeValue})
-        .then(function (response) {
-            //-----------TESTES
-            //console.log("Axios Recebe Array Cliente: "); 
-            //console.log(response.data);
-            if (response != null) {
-                let selectbox = $('#tcliente');
-                selectbox.find('option').remove();
-                for (i = 0; i < response.data.length; i++) {
-                    $('<option>').val(response.data[i].ds_Cliente).text(response.data[i].ds_Cliente).appendTo(selectbox);
-                }  
+
+    console.log('teste1');
+    $('#Grupo').change(function(){
+        var selectede = $("#Grupo").val();
+        $.ajax({
+            url: "_php1/fetch_cliente.php",
+            method: "POST",
+            data: {selected:selectede},
+            success:function(data){
+                $('#Cliente').html(data);
+                $('#Cliente').trigger('change')
             }
-            $('#tcliente').trigger('change')
-        })
-        .catch(function (error) {
-            console.log(error);
-            alert("Erro ao consultar o banco de dados para obter os dados [ds_Cliente]")
         });
     });
 
-
-
-    //POPULANDO O SELECT CNPJ
-    $('#tcliente').change(function(){
-        let selectedeValue = $("#tcliente").val();
-        //console.log("Axios Envia Cliente: " + selectedeValue)
-        axios.post('/tcnpj', {cliente:selectedeValue})
-        .then(function (response) {
-            //-----------TESTES
-            //console.log("Axios Recebe Array CNPJ: ");
-            //console.log(response.data);
-            if (response != null) {
-                let selectbox = $('#tcnpj');
-                selectbox.find('option').remove();
-                for (i = 0; i < response.data.length; i++) {
-                    $('<option>').val(response.data[i].ds_CNPJCliente).text(response.data[i].ds_CNPJCliente).appendTo(selectbox);
-                }  
-            }
-            $('#tcnpj').trigger('change')
-        })
-        .catch(function (error) {
-            console.log(error);
-            alert("Erro ao consultar o banco de dados para obter os dados [ds_CNPJCliente]")
-        });
-    });
-
-
-
-
-    //POPULANDO O SELECT OS
-    $('#tcnpj').change(function(){
-        let selectedeValue = $("#tcnpj").val();
-        //console.log("Axios Envia CNPJ: " + selectedeValue)
-        axios.post('/tos', {cnpj:selectedeValue})
-        .then(function (response) {
-            //-----------TESTES
-            //console.log("Axios Recebe Array OS: ");
-            //console.log(response.data);
-            if (response != null) {
-                let selectbox = $('#tos');
-                selectbox.find('option').remove();
-                for (i = 0; i < response.data.length; i++) {
-                    $('<option>').val(response.data[i].OS).text(response.data[i].OS).appendTo(selectbox);
-                }  
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-            alert("Erro ao consultar o banco de dados para obter os dados [OS]")
-        });
-    });
-
-
-
-
-    var count = 1;
-    $('#add').click(function(){
-        count = count + 1;
-        var html_code = "<tr id='row"+count+"'>";
-        html_code += "<td contenteditable='true' class='item_nome' data-label='NOME'></td>";
-        html_code += "<td contenteditable='true' class='item_email' data-label='EMAIL'></td>";
-        html_code += "<td contenteditable='true' class='item_telefone' data-label='TELEFONE'></td>";
-        html_code += "<td contenteditable='true' class='item_frente' data-label='FRENTE'></td>";
-        html_code += "<td><button type='button' name='remove' data-row='row"+count+"' class='btn btn-danger btn-xs remove'>-</button></td>";
-        html_code += "</tr>";
-        $('#crud_table').append(html_code);
-
-    });
-
-    $(document).on('click', '.remove', function(){
-        var delete_row = $(this).data("row");
-        $('#' + delete_row).remove();
-    });
-
-
-
-
-//----------------FUNCAO SUBMIT DO FORMULARIO---------------------
-    
-    $('#formId').on('submit', function(event){
+    $('#multiple_select_form').on('submit', function(event){
         event.preventDefault();
         var count_error = 0;
 
+        if($('#Diretoria').val() == null){
+            $('#Diretoria_required').text('Selecione um diretor.');
+            count_error++;
+        }else{
+            $('#Diretoria_required').text('');
+        }
 
-        // ARMAZENA DADOS DA TABELA EM ARRAY
+        if($('#Account_Manager').val() == null){
+            $('#Account_Manager_required').text('Selecione um Gestor PLCM.');
+            count_error++;
+        }else{
+            $('#Account_Manager_required').text('');
+        }
 
-        var item_nome = [];
-        var item_email = [];
-        var item_telefone = [];
-        var item_frente = [];
+        if($('#Gestor_Conta').val() == null){
+            $('#Gestor_Conta_required').text('Selecione um Gestor de Contas.');
+            count_error++;
+        }else{
+            $('#Gestor_Conta_required').text('');
+        }
+
+        if($('#Servico').val() == null){
+            $('#Servico_required').text('Selecione um Serviço.');
+            count_error++;
+        }else{
+            $('#Servico_required').text('');
+        }
+
+        if($('#Produto').val() == null){
+            $('#Produto_required').text('Selecione um Produto.');
+            count_error++;
+        }else{
+            $('#Produto_required').text('');
+        }
+
+        if($('#Grupo').val() == null){
+            $('#Grupo_required').text('Selecione um Grupo.');
+            count_error++;
+        }else{
+            $('#Grupo_required').text('');
+        }
+
+        if($('#Cliente').val() == null){
+            $('#Cliente_required').text('Selecione um Cliente.');
+            count_error++;
+        }else{
+            $('#Cliente_required').text('');
+        }
+
+        if($('#Partic_Clientes').val() == ''){
+            $('#Partic_Clientes_required').text('Insira a Participação do Cliente.');
+            count_error++;
+        }else{
+            $('#Partic_Clientes_required').text('');
+        }
+
+
+        if($('#Partic_Sonda').val() == ''){
+            $('#Partic_Sonda_required').text('Insira a Participação da Sonda.');
+            count_error++;
+        }else{
+            $('#Partic_Sonda_required').text('');
+        }
+
+        if($('#Motivo_Reuniao').val() == ''){
+            $('#Motivo_Reuniao_required').text('Insira o da Motivo da Reunião.');
+            count_error++;
+        }else{
+            $('#Motivo_Reuniao_required').text('');
+        }
+
+        if($('#Pontos_Positivos').val() == ''){
+            $('#Pontos_Positivos_required').text('Insira um Ponto Positivo.');
+            count_error++;
+        }else{
+            $('#Pontos_Positivos_required').text('');
+        }
+
+        if($('#Pontos_Negativos').val() == ''){
+            $('#Pontos_Negativos_required').text('Insira um Ponto Negativo.');
+            count_error++;
+        }else{
+            $('#Pontos_Negativos_required').text('');
+        }
+
+        if($('#Oportunidades').val() == ''){
+            $('#Oportunidades_required').text('Insira uma Oportunidade.');
+            count_error++;
+        }else{
+            $('#Oportunidades_required').text('');
+        }
+
+        if($('#Motivo_Satisfeito1').val() == ''){
+            $('#Motivo_Satisfeito1_required').text('Insira uma Satisfação.');
+            count_error++;
+        }else{
+            $('#Motivo_Satisfeito1_required').text('');
+        }
+
+        if($('#Motivo_Insatisfeito1').val() == ''){
+            $('#Motivo_Insatisfeito1_required').text('Insira uma Satisfação.');
+            count_error++;
+        }else{
+            $('#Motivo_Insatisfeito1_required').text('');
+        }
+
+        if($('#Canal_visita').val() == null){
+            $('#Canal_visita_required').text('Selecione o Canal de visita.');
+            count_error++;
+        }else{
+            $('#Canal_visita_required').text('');
+        }
+
+        if($('#Num_pessoas_Aereo_Hotel').val() == null){
+            $('#Num_pessoas_Aereo_Hotel_required').text('Selecione a quantidade de pessoas.');
+            count_error++;
+        }else{
+            $('#Num_pessoas_Aereo_Hotel_required').text('');
+        }
+
+        if($('#Num_pessoas_Uber_Taxi').val() == null){
+            $('#Num_pessoas_Uber_Taxi_required').text('Selecione a quantidade de pessoas.');
+            count_error++;
+        }else{
+            $('#Num_pessoas_Uber_Taxi_required').text('');
+        }
+
+        if($('#Tempo_reuniao').val() == null){
+            $('#Tempo_reuniao_required').text('Selecione a Duração da reunião.');
+            count_error++;
+        }else{
+            $('#Tempo_reuniao_required').text('');
+        }
+
+        if($('#Data_Visita').val() == ''){
+            $('#Data_Visita_required').text('Insira a Data da Reunião.');
+            count_error++;
+        }else{
+            $('#Data_Visita_required').text('');
+        }
+
+        if($('input[name="Temperatura_Reniao"]').val() == null){
+            $('#Temperatura_Reniao_required').text('Selecione uma estrela');
+            count_error++;
+        }else{
+            $('Temperatura_Reniao_required').text('');
+        }
+
+        if($('input[name="Grau_Satisfacao_Geral"]').val() == null){
+            $('#Grau_Satisfacao_Geral_required').text('Selecione uma estrela.');
+            count_error++;
+        }else{
+            $('#Grau_Satisfacao_Geral_required').text('');
+        }
         
-        var item_grupo = $('#tgrupo').val();
-        var item_cliente = $('#tcliente').val();
-        var item_cnpj = $('#tcnpj').val();
-        var item_os = $('#tos').val();
-
-        var item_ae = $('#ae').val(); // ACCOUNT EXECUTIVE
-        var item_gc = $('#gc').val(); // GESTOR DE CONTA
-        var item_plcm = $('#plcm').val(); // GESTOR DE PLCM (AM)
-
-        var item_produto = $('#tproduto').val(); //Produtos
-
-        $('.item_nome').each(function(){
-            item_nome.push($(this).text());
-        });
-        $('.item_email').each(function(){
-            item_email.push($(this).text());
-        });
-        $('.item_telefone').each(function(){
-            item_telefone.push($(this).text());
-        });
-        $('.item_frente').each(function(){
-            item_frente.push($(this).text());
-        });
-        
-
-        // VERIFICACAO DE CAMPOS SEM VALORES
-
-            // [[GRUPO]]
-        if(item_grupo == null || item_grupo == ""){
-            $('#grupo_required').text('Selecione um grupo');
-            count_error++;
-        }else{
-            $('#grupo_required').text('');
-        }
-
-            // [[CLIENTE]]
-        if(item_cliente == null || item_cliente == ""){
-            $('#cliente_required').text('Selecione um cliente');
-            count_error++;
-        }else{
-            $('#cliente_required').text('');
-        }
-
-            // [[CNPJ]]
-        if(item_cnpj == null || item_cnpj == ""){
-            $('#cnpj_required').text('Selecione um cnpj');
-            count_error++;
-        }else{
-            $('#cnpj_required').text('');
-        }
-
-            // [[OS]]
-        if(item_os == null || item_os == ""){
-            $('#os_required').text('Selecione uma OS');
-            count_error++;
-        }else{
-            $('#os_required').text('');
-        }
-
-        //--------[PRODUTOS]]-------------
-        if(item_produto == null || item_produto == ""){
-            $('#produto_required').text('Selecione os produtos');
-            count_error++;
-        }else{
-            $('#produto_required').text('');
-        }
-
-
-
-  
-        
-        //--------[[ACCOUNT EXECUTIVE (AE)]]---------------
-        if(item_ae == null || item_ae == ""){
-            $('#ae_required').text('Insira um account executive');
-            count_error++;
-        }else{
-            $('#ae_required').text('');
-        }
-
-        //--------[[GESTOR DE CONTA (GC - GR)]]---------------
-        if(item_gc == null || item_gc == ""){
-            $('#gc_required').text('Insira um gestor de conta');
-            count_error++;
-        }else{
-            $('#gc_required').text('');
-        }
-
-        //--------[[GESTOR CLIENTE SONDA (GESTOR DE PLCM (AM))]]---------------
-        if(item_plcm == null || item_plcm == ""){
-            $('#plcm_required').text('Insira um gestor de plcm');
-            count_error++;
-        }else{
-            $('#plcm_required').text('');
-        }
-
-        //--------[[TABELA -- NOME]]---------------
-        if(item_nome[count - 1] == ''){
-            $('#item_nome_required').text('Insira um nome');
-            count_error++;
-        }else{
-            $('#item_nome_required').text('');
-        }
-
-        //--------[[TABELA -- EMAIL]]---------------
-        if(item_email[count - 1] == ''){
-            $('#item_email_required').text('Insira um email');
-            count_error++;
-        }else{
-            $('#item_email_required').text('');
-        }
-
-        //--------[[TABELA -- TELEFONE]]---------------
-        if(item_telefone[count - 1] == ''){
-            $('#item_telefone_required').text('Insira um telefone');
-            count_error++;
-        }else{
-            $('#item_telefone_required').text('');
-        }
-
-        //--------[[TABELA -- FRENTE]]---------------
-        if(item_frente[count - 1] == ''){
-            $('#item_frente_required').text('Insira uma frente');
-            count_error++;
-        }else{
-            $('#item_frente_required').text('');
-        }
-
-
         if(count_error == 0){
-            // [[ISERCAO]]
-            axios.post('/cadProduto', 
-                {item_os:item_os, item_cliente:item_cliente, item_grupo:item_grupo, item_cnpj:item_cnpj, 
-                item_ae:item_ae, item_gc:item_gc, item_plcm:item_plcm, item_produto:item_produto,
-                item_nome:item_nome, item_email:item_email, item_telefone:item_telefone, item_frente:item_frente}
-            )
-            .then(function (response) {
-                //-----------TESTES
-                $("td[contentEditable='true']").text("");
-                for(var i=2; i<=count; i++){
-                    $('tr#'+i+'').remove();
-                }
-
-                //Limpa dados dos campos: tproduto, tgrupo, ae, gc, plcm
-                $('.selectpicker').selectpicker('val','');
-
-                $('#tos').val('');
-                $('#tcnpj').val('');
-                $('#tcliente').val('');
-
-                $('#nome1').val('');
-                $('#email1').val('');
-                $('#telefone1').val('');
-                $('#frente1').val('');
+            $.ajax({
+                url:"_php1/insert.php",
+                method: "POST",
+                data: $(this).serialize(),
+                success: function(data){
+                    $('.selectpicker').selectpicker('val','');
+                    $('#Diretoria').val('');
+                    $('#Account_Manager').val('');
+                    $('#Gestor_Conta').val('');
+                    $('#Servico').val('');
+                    $('#Cliente').val('');
+                    $('#Produto').val('');
+                    $('#Partic_Clientes').val('');
+                    $('#Partic_Sonda').val('');
+                    $('#Motivo_Reuniao').val('');
+                    $('#Pontos_Positivos').val('');
+                    $('#Pontos_Negativos').val('');
+                    $('#Oportunidadess').val('');
+                    $('#Motivo_Satisfeito1').val('');
+                    $('#Motivo_Satisfeito2').val('');
+                    $('#Motivo_Satisfeito3').val('');
+                    $('#Motivo_Insatisfeito1').val('');
+                    $('#Motivo_Insatisfeito2').val('');
+                    $('#Motivo_Insatisfeito3').val('');
+                    $('#Observacao_Satisfacao').val('');
+                    $('#Canal_visita').val('');
+                    $('#Num_pessoas_Aereo_Hotel').val('');
+                    $('#Num_pessoas_Uber_Taxi').val('');
+                    $('#Tempo_reuniao').val('');
+                    $('#Data_Visita').val('');
+                    $('#Temperatura_Reniao').val('');
+                    $('#Grau_Satisfacao_Geral').val('');
                 
-                Swal.fire({
-                    width: 300,
-                    icon: 'success',
-                    title: `<h4>${response.data}</h4>`,
-                    showConfirmButton: true,
-                });
-
-            })
-            .catch(function (error) {
-                console.log(error);
-                $("td[contentEditable='true']").text("");
-                for(var i=2; i<=count; i++){
-                    $('tr#'+i+'').remove();
+                    alert(data);
                 }
-
-                //Limpa dados dos campos: tproduto, tgrupo, ae, gc, plcm
-                $('.selectpicker').selectpicker('val','');
-
-                $('#tos').val('Selecione um valor');
-                $('#tcnpj').val('Selecione um valor');
-                $('#tcliente').val('Selecione um valor');
-
-                $('#nome1').val('');
-                $('#email1').val('');
-                $('#telefone1').val('');
-                $('#frente1').val('');
-
-                Swal.fire({
-                    width: 300,
-                    icon: 'error',
-                    title: `<h4>Erro ao inserir os dados no banco!<h4>`,
-                    showConfirmButton: true,
-                });
             });
 
         }
 
-
     });
-
-
-
-
-
-
-
-
-    
 });
-

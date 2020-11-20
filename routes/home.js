@@ -6,12 +6,7 @@ router.get('/', (req, res)=>{
     res.render("index")
 })
 
-router.get('/teste2', (req, res) =>{
-    res.render("teste2") 
-})
-
-
-
+//==================ROTA CONSULTA GRUPO-AE-GR-PLCM-PRODUTO======================
 router.get('/cadProduto', (req, res) =>{
     global.conn.request()
     //QUERY SELECT GRUPO EMPRESARIAL
@@ -71,7 +66,7 @@ router.get('/cadProduto', (req, res) =>{
 
 
 
-//ROTA CONSULTA CLIENTE
+//==================ROTA CONSULTA CLIENTE======================
 router.post('/tcliente', (req, res) =>{
     //console.log("SQL Recebe Grupo de Axios: " + req.body.grupo)
     global.conn.request()
@@ -103,7 +98,7 @@ router.post('/tcliente', (req, res) =>{
 
 
 
-//ROTA CONSULTA CNPJ
+//=======================ROTA CONSULTA CNPJ=====================
 router.post('/tcnpj', (req, res) =>{
     //console.log("SQL Recebe Cliente de Axios: " + req.body.cliente)
     global.conn.request()
@@ -135,7 +130,7 @@ router.post('/tcnpj', (req, res) =>{
 
 
 
-//ROTA CONSULTA OS
+//===============ROTA CONSULTA OS==================
 router.post('/tos', (req, res) =>{
     //console.log("SQL Recebe CNPJ de Axios: " + req.body.cnpj)
     global.conn.request()
@@ -170,7 +165,7 @@ router.post('/tos', (req, res) =>{
 
 
 
-//ROTA INSERT DADOS
+//==============ROTA INSERT DADOS====================
 router.post('/cadProduto', (req, res) =>{
        
     let item_os = req.body.item_os;
@@ -228,5 +223,172 @@ router.post('/cadProduto', (req, res) =>{
     });
 
 })
+
+
+
+/*
+
+<?php
+include('_conn/database_conn.php');
+    //Diretoria
+    $query = "SELECT * FROM FormEntrada_Diretoria_carga";
+
+    //AM
+    $query2 = "SELECT * FROM FormEntrada_AM_carga";
+    
+    //GestorContas
+    $query4 = "SELECT * FROM FormEntrada_GestorConta_carga";
+
+    //Produto
+    $query6 = "SELECT * FROM FormEntrada_Produto_carga";
+
+    //Servico
+    $query5 = "SELECT * FROM FormEntrada_Servico_carga";
+
+
+
+
+
+
+
+    TABELA NÂO IDENTIFICADA
+    //Cliente
+    $query3 = "SELECT * FROM FromEntrada_Cliente_carga";
+
+
+
+
+
+
+
+
+
+    //Satisfacao
+    $query7 = "SELECT * FROM FormEntrada_MotivosSatisfacao_carga";
+
+    $query8 = "SELECT * FROM FormEntrada_MotivosSatisfacao_carga";
+
+    $query9 = "SELECT * FROM FormEntrada_MotivosSatisfacao_carga";
+
+
+    //Insatisfacao
+    $query10 = "SELECT * FROM FormEntrada_MotivosSatisfacao_carga";
+
+    $query11 = "SELECT * FROM FormEntrada_MotivosSatisfacao_carga";
+
+    $query12 = "SELECT * FROM FormEntrada_MotivosSatisfacao_carga";
+
+
+    //QUERY TABELA [[GERAL]]
+    $query13 = "SELECT DISTINCT [Grupo Empresarial] FROM FormEntrada_CadastroOS ORDER BY [Grupo Empresarial] ASC";
+    $statement13 = sqlsrv_query($connect, $query13);
+?>
+
+*/
+
+
+//==================ROTA CONSULTA GRUPO-AE-GR-PLCM-PRODUTO======================
+
+router.get('/cadVisitas', (req, res) =>{
+    global.conn.request()
+    //QUERY SELECT GRUPO EMPRESARIA
+    .query('SELECT DISTINCT [Grupo Empresarial] FROM FormEntrada_CadastroOS ORDER BY [Grupo Empresarial] ASC')//OK--------------
+    .then(grupoEmpresarial => {
+        global.conn.request()
+        //QUERY SELECT DIRETORIA
+        .query('SELECT diretoria FROM FormEntrada_Diretoria_carga ORDER BY diretoria ASC')//OK--------------
+        .then(diretoria => {
+            global.conn.request()
+            //QUERY SELECT PRODUTO
+            .query('SELECT produto FROM FormEntrada_Produto_carga ORDER BY produto ASC')//OK--------------
+            .then(produto => {
+                global.conn.request()
+                //QUERY SELECT GESTOR CLIENTE SONDA - ATUAL GESTOR DE PLCM (ANTIGO AM)
+                .query('SELECT AM FROM FormEntrada_AM_carga ORDER BY AM ASC')//OK--------------
+                .then(gestorPLCM => {
+                    global.conn.request()
+                    //QUERY SELECT GESTOR DE CONTA (GR)
+                    .query('SELECT Gestor_Conta FROM FormEntrada_GestorConta_carga ORDER BY Gestor_Conta ASC')//OK--------------
+                    .then(gestorContaGR => {
+                        global.conn.request()
+                        //QUERY SELECT GESTOR DE CONTA (GR)
+                        .query('SELECT servico FROM FormEntrada_Servico_carga ORDER BY servico ASC')//OK--------------
+                        .then(servico => {
+    
+                            global.conn.request()
+                            //QUERY SELECT SATISFAÇÃO
+                            .query('SELECT * FROM FormEntrada_MotivosSatisfacao_carga')//OK--------------
+                            .then(satsfacao => {
+        
+                                res.render("cadVisitas", {
+                                    grupoEmpresarial: grupoEmpresarial.recordset, 
+                                    diretoria: diretoria.recordset,
+                                    produtos: produto.recordset,
+                                    gestorPLCM: gestorPLCM.recordset,
+                                    gestorContaGR: gestorContaGR.recordset,
+                                    servico: servico.recordset,
+                                    satsfacao: satsfacao.recordset
+                                })
+                            })
+                            .catch(error => {
+                                res.status(500).send(error);
+                                console.log("Erro ao consultar a categoria SATISFACAO");
+                            });
+
+                        })
+                        .catch(error => {
+                            res.status(500).send(error);
+                            console.log("Erro ao consultar a categoria SERVICO");
+                        });
+                    })
+                    .catch(error => {
+                        res.status(500).send(error);
+                        console.log("Erro ao consultar a categoria GESTOR DE CONTA (GR)");
+                    });   
+                })
+                .catch(error => {
+                    res.status(500).send(error);
+                    console.log("Erro ao consultar a categoria GESTOR CLIENTE SONDA (PLCM)- AM");
+                });
+            })
+            .catch(error => {
+                res.status(500).send(error);
+                console.log("Erro ao consultar a categoria PRODUTO");
+            });
+        })
+        .catch(error => {
+            res.status(500).send(error);
+            console.log("Erro ao consultar a categoria ACCOUNT EXECUTIVE (AE)");
+        });
+    })
+    .catch(error => {
+        res.status(500).send(error);
+        console.log("Erro ao consultar a categoria Grupo Empresarial");
+    }); 
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = router;
