@@ -185,7 +185,7 @@ router.post('/cadProduto', (req, res) =>{
     //INSERT PRODUTOS
     global.conn.request()
     .query(
-        `INSERTx INTO FormOut_ProdutosDev (Grupo_Empresarial, Cliente, CNPJ, OS, Produtos) 
+        `INSERT INTO FormOut_ProdutosDev (Grupo_Empresarial, Cliente, CNPJ, OS, Produtos) 
             VALUES( '${item_grupo}','${item_cliente}','${item_cnpj}','${item_os}','${item_produto}')`
     )
     .then(resp => {
@@ -370,7 +370,104 @@ router.get('/cadVisitas', (req, res) =>{
 
 
 
+router.post('/cadVisitas', (req, res) =>{
+    
+    
+    
+    const dadosAxios = [{
+        'Temperatura_Reuniao':req.body.Temperatura_Reuniao,
+        'Grau_Satisfacao_Geral':req.body.Grau_Satisfacao_Geral
+    }]
+    console.log(dadosAxios);
 
+
+    res.send('Dados Inseridos com Sucesso!')
+    /*
+                    Diretoria:Diretoria,
+                    Account_Manager:Account_Manager,
+                    Gestor_Conta:Gestor_Conta,
+                    Grupo:Grupo,
+                    Cliente:Cliente,
+                    Produto:Produto,
+                    Servico:Servico,
+                    Partic_Clientes:Partic_Clientes,
+                    Partic_Sonda:Partic_Sonda,
+                    Motivo_Reuniao:Motivo_Reuniao,
+                    Pontos_Positivos:Pontos_Positivos,
+                    Pontos_Negativos:Pontos_Negativos,
+                    Oportunidades:Oportunidades,
+                    Motivo_Satisfeito1:Motivo_Satisfeito1,
+                    Motivo_Satisfeito2:Motivo_Satisfeito2,
+                    Motivo_Satisfeito3:Motivo_Satisfeito3,
+                    Motivo_Insatisfeito1:Motivo_Insatisfeito1,
+                    Motivo_Insatisfeito2:Motivo_Insatisfeito2,
+                    Motivo_Insatisfeito3:Motivo_Insatisfeito3,
+                    Observacao_Satisfacao:Observacao_Satisfacao,
+                    Canal_visita:Canal_visita,
+                    Num_pessoas_Aereo_Hotel:Num_pessoas_Aereo_Hotel,
+                    Tempo_reuniao:Tempo_reuniao,
+                    Num_pessoas_Uber_Taxi:Num_pessoas_Uber_Taxi,
+                    Data_Visita:Data_Visita,
+                    Temperatura_Reuniao:Temperatura_Reuniao,
+                    Grau_Satisfacao_Geral:Grau_Satisfacao_Geral
+
+                    
+    let item_os = req.body.item_os;
+    let item_cliente = req.body.item_cliente;
+    let item_grupo = req.body.item_grupo;
+    let item_cnpj = req.body.item_cnpj;
+    let item_ae = req.body.item_ae;
+    let item_gc = req.body.item_gc;
+    let item_plcm = req.body.item_plcm;
+    let item_produto = req.body.item_produto;
+    let item_nome = req.body.item_nome;
+    let item_email = req.body.item_email;
+    let item_telefone = req.body.item_telefone;
+    let item_frente = req.body.item_frente;
+
+
+    //INSERT PRODUTOS
+    global.conn.request()
+    .query(
+        `INSERTx INTO FormOut_ProdutosDev (Grupo_Empresarial, Cliente, CNPJ, OS, Produtos) 
+            VALUES( '${item_grupo}','${item_cliente}','${item_cnpj}','${item_os}','${item_produto}')`
+    )
+    .then(resp => {
+        //INSERT GESTOR
+        global.conn.request()
+        .query(
+            `INSERT INTO FormOut_GestaoSondaDev (Grupo_Empresarial, Cliente, CNPJ, OS, Account_Executive_AE, Gestor_de_Conta, Gestor_Cliente_Sonda) 
+                VALUES ('${item_grupo}','${item_cliente}','${item_cnpj}','${item_os}','${item_ae}','${item_gc}','${item_plcm}')`
+        )
+        .then(resp => {
+            for(let i = 0; i<item_nome.length; i++){
+                //INSERT CONTATOS
+                global.conn.request()
+                .query(
+                    `INSERT INTO FormOut_ContatoClienteDev (Grupo_Empresarial, Cliente, CNPJ, OS, nome_contato_cliente, email_contato_cliente, telefone_contato_cliente, frente_contato_cliente) 
+                        VALUES ('${item_grupo}','${item_cliente}','${item_cnpj}','${item_os}','${item_nome[i]}','${item_email[i]}','${item_telefone[i]}','${item_frente[i]}')`
+                )
+                .then(resp => {
+                    res.send('Dados Inseridos com Sucesso!')
+                })
+                .catch(error => {
+                    res.status(500).send(error);
+                    console.log("Erro ao inserir dados na tabela FormOut_ContatoClienteDev");
+                });
+            }
+        })
+        .catch(error => {
+            res.status(500).send(error);
+            console.log("Erro ao inserir dados na tabela FormOut_GestaoSondaDev");
+        });
+    })
+    .catch(error => {
+        res.status(500).send(error);
+        console.log("Erro ao inserir dados na tabela FormOut_ProdutosDev");
+    });
+    */
+
+})
 
 
 

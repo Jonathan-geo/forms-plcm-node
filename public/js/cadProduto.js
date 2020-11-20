@@ -104,7 +104,7 @@ $(document).ready(function(){
 
 //----------------FUNCAO SUBMIT DO FORMULARIO---------------------
     
-    $('#formId').on('submit', function(event){
+    $('#formProduto').on('submit', function(event){
         event.preventDefault();
         var count_error = 0;
 

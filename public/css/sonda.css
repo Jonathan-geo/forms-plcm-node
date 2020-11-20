@@ -60,10 +60,12 @@ h3{
 
 .estrelas input[type=radio]{
 	display: none !important;
-}.estrelas label i.fa:before{
+}
+.estrelas label i.fa:before{
 	content: '\f005' !important;
 	color: #FC0 !important;
-}.estrelas  input[type=radio]:checked  ~ label i.fa:before{
+}
+.estrelas  input[type=radio]:checked  ~ label i.fa:before{
 	color: #CCC !important;
 }
 
