@@ -5,6 +5,16 @@ require('../config/databaseConfig');
 router.get('/', (req, res)=>{
     res.render("index")
 })
+
+router.get('/dashVisitas', (req, res)=>{
+    res.render("dashVisitas")
+})
+
+router.get('/dashSegmento', (req, res)=>{
+    res.render("dashSegmento")
+})
+
+
 /*
 *
 *
